@@ -63,6 +63,10 @@ class MainFragment : Fragment() {
         binding.authButton.setOnClickListener {
             launchSignInFlow()
         }
+        binding.settingsBtn.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -95,20 +99,11 @@ class MainFragment : Fragment() {
                     binding.welcomeText.text = getFactWithPersonalization(factToDisplay)
                     binding.authButton.text = getString(R.string.logout_button_text)
                     binding.authButton.setOnClickListener {
-                        // TODO implement logging out user in next step
                         AuthUI.getInstance().signOut(requireContext())
                     }
-
-                    // TODO 2. If the user is logged in,
-                    // you can customize the welcome message they see by
-                    // utilizing the getFactWithPersonalization() function  provided
                 }
                 else -> {
-                    // TODO 3. Lastly, if there is no logged-in user,
-                    // auth_button should display Login and
-                    // launch the sign in screen when clicked.
                     binding.welcomeText.text = factToDisplay
-
                     binding.authButton.text = getString(R.string.login_button_text)
                     binding.authButton.setOnClickListener {
                         launchSignInFlow()
